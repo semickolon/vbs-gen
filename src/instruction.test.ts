@@ -12,17 +12,23 @@ describe('message box instruction', () => {
   });
 
   test(`encodes prompt and buttons`, () => {
-    const inst = Instruction.messageBox('Wow', MessageBoxButtons.AbortRetryIgnore);
+    const inst = Instruction.messageBox('Wow', '', MessageBoxButtons.AbortRetryIgnore);
     expect(inst.encode()).toMatch(msgBoxRegex(`"Wow"`, `2`));
   });
 
   test(`encodes prompt, buttons, and icon`, () => {
     const inst = Instruction.messageBox(
       'samplawer   123.',
+      '',
       MessageBoxButtons.YesNoCancel,
       MessageBoxIcon.Question
     );
     expect(inst.encode()).toMatch(msgBoxRegex(`"samplawer   123."`, `35`));
+  });
+
+  test(`encodes prompt and title`, () => {
+    const inst = Instruction.messageBox(' hyperballad ', 'bjork ');
+    expect(inst.encode()).toMatch(msgBoxRegex(`" hyperballad "`, `0`, `"bjork "`));
   });
 
   function msgBoxRegex(...params: string[]): RegExp {

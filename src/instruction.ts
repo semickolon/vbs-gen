@@ -21,13 +21,19 @@ export enum MessageBoxIcon {
 
 function messageBox(
   prompt: string,
+  title = '',
   buttons = MessageBoxButtons.Ok,
   icon = MessageBoxIcon.Default
 ): Encodable {
   prompt = prompt.replace(/"/g, '""');
   return {
     encode() {
-      return `x = MsgBox("${prompt}", ${buttons + icon})`;
+      const params = [`"${prompt}"`, `${buttons + icon}`];
+      if (title !== '') {
+        params.push(`"${title}"`);
+      }
+
+      return `x = MsgBox(${params.join(', ')})`;
     },
   };
 }
