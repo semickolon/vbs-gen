@@ -48,6 +48,7 @@ test('save script with one instruction in a directory', async () => {
   mockReadLine('Title here');
   mockSelectOneFrom('Retry, Cancel');
   mockSelectOneFrom('Critical');
+  mockSelectOneFrom('Open command prompt');
   mockSelectOneFrom('Save');
   mockReadLine('myFolder/rubbish');
 
