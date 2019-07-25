@@ -37,3 +37,15 @@ test('requests input for single choice menu with inquirer.prompt', async () => {
   expect(faveFilm).toBe('The Shining');
   expect(faveFood).toBe('Tide Pods');
 });
+
+test('requests console input with inquirer.prompt', async () => {
+  (inquirer.prompt as any)
+    .mockResolvedValueOnce({ data: 'abc' })
+    .mockResolvedValueOnce({ data: '123_456' });
+
+  const input1 = await prompt.readLine('Letters?');
+  const input2 = await prompt.readLine('Numbers?');
+
+  expect(input1).toBe('abc');
+  expect(input2).toBe('123_456');
+});

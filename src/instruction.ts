@@ -12,7 +12,7 @@ export enum MessageBoxButtons {
 }
 
 export enum MessageBoxIcon {
-  Default,
+  None,
   Critical = 16,
   Question = 32,
   Exclamation = 48,
@@ -23,7 +23,7 @@ function messageBox(
   prompt: string,
   title = '',
   buttons = MessageBoxButtons.Ok,
-  icon = MessageBoxIcon.Default
+  icon = MessageBoxIcon.None
 ): Encodable {
   prompt = prompt.replace(/"/g, '""');
   return {

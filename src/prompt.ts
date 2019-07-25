@@ -4,7 +4,39 @@ function print(message: string) {
   console.log(message);
 }
 
-async function selectOneFrom(query: string, ...choices: string[]) {
+function clear() {
+  process.stdout.write('\u001b[2J\u001b[0;0H');
+}
+
+async function readLine(query: string) {
+  const { data: input } = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'data',
+      message: query,
+    },
+  ]);
+  return input as string;
+}
+
+async function pause(message?: string) {
+  if (message) {
+    print(message);
+  }
+
+  if (!process.stdin.setRawMode) {
+    return;
+  }
+
+  process.stdin.setRawMode(true);
+  process.stdin.resume();
+
+  return new Promise(resolve => {
+    process.stdin.on('data', resolve);
+  });
+}
+
+async function selectOneFrom<T extends string>(query: string, ...choices: T[]): Promise<T> {
   const { data: chosen } = await inquirer.prompt([
     {
       type: 'list',
@@ -13,10 +45,13 @@ async function selectOneFrom(query: string, ...choices: string[]) {
       choices,
     },
   ]);
-  return chosen as string;
+  return chosen;
 }
 
 export default {
   print,
+  clear,
+  readLine,
+  pause,
   selectOneFrom,
 };
