@@ -26,6 +26,7 @@ async function makeInstruction(vbs: VBScript) {
   const instType = await prompt.selectOneFrom(
     'Select instruction',
     'Show message box',
+    'Open command prompt',
     'Save',
     'Abort'
   );
@@ -34,6 +35,10 @@ async function makeInstruction(vbs: VBScript) {
   switch (instType) {
     case 'Show message box':
       await makeMessageBox(vbs);
+      break;
+
+    case 'Open command prompt':
+      vbs.instructions.push(Instruction.openCmd());
       break;
 
     case 'Save':

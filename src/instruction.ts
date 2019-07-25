@@ -40,6 +40,13 @@ function messageBox(
   };
 }
 
+function openCmd(): Encodable {
+  return {
+    encode: () => 'CreateObject("Wscript.Shell").Run "cmd.exe"',
+  };
+}
+
 export default {
   messageBox,
+  openCmd,
 };

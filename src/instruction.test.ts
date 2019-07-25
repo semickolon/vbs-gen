@@ -55,3 +55,8 @@ describe('message box instruction', () => {
     return new RegExp(`^\\D+\\s*=\\s*MsgBox\\s*\\(\\s*${rxParams}\\s*\\)$`);
   }
 });
+
+test('open command prompt instruction', () => {
+  const inst = Instruction.openCmd();
+  expect(inst.encode()).toMatch(/cmd\.exe/i);
+});
