@@ -5,7 +5,7 @@ function print(message: string) {
 }
 
 function clear() {
-  process.stdout.write('\u001b[2J\u001b[0;0H');
+  print('\u001b[2J\u001b[0;0H');
 }
 
 async function readLine(query: string) {
@@ -24,11 +24,6 @@ async function pause(message?: string) {
     print(message);
   }
 
-  if (!process.stdin.setRawMode) {
-    return;
-  }
-
-  process.stdin.setRawMode(true);
   process.stdin.resume();
 
   return new Promise(resolve => {

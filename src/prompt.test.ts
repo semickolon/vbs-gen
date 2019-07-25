@@ -49,3 +49,31 @@ test('requests console input with inquirer.prompt', async () => {
   expect(input1).toBe('abc');
   expect(input2).toBe('123_456');
 });
+
+test('pauses with no message until a key is pressed', done => {
+  const pause = prompt.pause();
+  process.stdin.emit('data');
+
+  pause.then(() => {
+    expect(console.log).not.toHaveBeenCalled();
+    done();
+  });
+});
+
+test('pauses with a given message until a key is pressed', done => {
+  const pause = prompt.pause('Press any key to continue...');
+  process.stdin.emit('data');
+
+  pause.then(() => {
+    expect(console.log).toHaveBeenCalledTimes(1);
+    expect(console.log).toHaveBeenCalledWith('Press any key to continue...');
+    done();
+  });
+});
+
+test('clears prompt', () => {
+  // Very tautological. Look for ways to verify prompt is cleared.
+  prompt.clear();
+  expect(console.log).toHaveBeenCalledTimes(1);
+  expect(console.log).toHaveBeenCalledWith('\u001b[2J\u001b[0;0H');
+});

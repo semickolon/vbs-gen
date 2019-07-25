@@ -25,10 +25,12 @@ function messageBox(
   buttons = MessageBoxButtons.Ok,
   icon = MessageBoxIcon.None
 ): Encodable {
-  prompt = prompt.replace(/"/g, '""');
   return {
     encode() {
-      const params = [`"${prompt}"`, `${buttons + icon}`];
+      // Escape all double quotes inside a string param
+      const message = prompt.replace(/"/g, '""');
+      const params = [`"${message}"`, `${buttons + icon}`];
+
       if (title !== '') {
         params.push(`"${title}"`);
       }
