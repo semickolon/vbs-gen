@@ -1,4 +1,4 @@
-interface Encodable {
+export interface Encodable {
   encode: () => string;
 }
 
