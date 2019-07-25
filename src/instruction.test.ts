@@ -31,6 +31,16 @@ describe('message box instruction', () => {
     expect(inst.encode()).toMatch(msgBoxRegex(`" hyperballad "`, `0`, `"bjork "`));
   });
 
+  test(`encodes prompt, buttons, icon, and title`, () => {
+    const inst = Instruction.messageBox(
+      'p',
+      't',
+      MessageBoxButtons.RetryCancel,
+      MessageBoxIcon.Exclamation
+    );
+    expect(inst.encode()).toMatch(msgBoxRegex(`"p"`, `53`, `"t"`));
+  });
+
   function msgBoxRegex(...params: string[]): RegExp {
     params = params.map(param => {
       param = param.trim();
