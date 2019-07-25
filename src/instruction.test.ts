@@ -27,8 +27,8 @@ describe('message box instruction', () => {
   });
 
   test(`encodes prompt and title`, () => {
-    const inst = Instruction.messageBox(' hyperballad ', 'bjork ');
-    expect(inst.encode()).toMatch(msgBoxRegex(`" hyperballad "`, `0`, `"bjork "`));
+    const inst = Instruction.messageBox(' hyperballad\t', 'bjork ');
+    expect(inst.encode()).toMatch(msgBoxRegex(`" hyperballad\t"`, `0`, `"bjork "`));
   });
 
   test(`encodes prompt, buttons, icon, and title`, () => {
